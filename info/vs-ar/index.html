@@ -1,0 +1,738 @@
+<style>
+/* 폰트 import */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+/* 폰트 정의 */
+@font-face {
+    font-family: 'Dovemayo_gothic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 또는 전체 컨테이너에 적용 */
+.container, .tab-container, .tab-buttons button {
+    font-family: 'Dovemayo_gothic', sans-serif;
+}
+
+.watermark {
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+  .container {
+    max-width: 350px;  /* 테이블 크기에 맞춤 */
+    margin: 0 auto;
+    position: relative;
+	    background-color: white;  /* 패딩 영역의 배경색을 흰색으로 설정 */
+
+  }
+
+  .tab-container {
+    margin-bottom: 10px;
+  }
+  .small-txt{
+  font-size: 11px !important;
+  }
+
+  .tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .tab-button {
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.6;
+  }
+
+  .tab-button.active {
+    border-bottom: 2px solid #1a73e8;
+    opacity: 1;
+  }
+
+  .tab-content {
+    display: none;
+    position: relative;
+	  padding: 20px 30px;  /* 상하 20px, 좌우 30px의 여백 추가 */
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* 워터마크 수정 */
+
+
+  .table-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .schedule-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 8px 0;
+    width: 270px;
+    border: 2px solid black;
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);  /* 배경 투명도 증가 */
+  }
+  
+  .schedule-table th, 
+  .schedule-table td {
+    border: 0.5px solid #999;
+    text-align: center;
+    width: 42px;
+    height: 18px;
+    font-size: 13px;
+    padding: 0;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.7);  /* 셀 배경도 반투명하게 */
+  }
+
+  .schedule-table th {
+    border-bottom: 1px solid black;
+    background-color: rgba(227, 242, 253, 0.9);
+    font-size: 14px;
+    padding: 3px 0;
+  }
+
+  .schedule-table td:first-child {
+    background-color: rgba(227, 242, 253, 0.9);
+    font-weight: bold;
+    width: 40px;
+  }
+  
+  .yellow-bg {
+    background-color: rgba(255, 245, 157, 0.9) !important;
+  }
+  
+  .green-bg {
+    background-color: rgba(200, 230, 201, 0.9) !important;
+  }
+
+  .gray-bg {
+    background-color: rgba(224, 224, 224, 0.9) !important;
+  }
+
+  /* 나머지 스타일은 동일 */
+  .period-row td {
+    position: relative;
+    height: 20px;
+    vertical-align: middle;
+  }
+  
+  .period-content {
+    position: relative;
+    text-align: center;
+  }
+  
+  .period-text {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0 4px;
+    display: inline-block;
+    font-size: 12px;
+  }
+  
+  .period-arrow {
+    position: absolute;
+    left: 0;
+    right: -1px;
+    top: 50%;
+    height: 1px;
+    background: black;
+    z-index: 1;
+  }
+  
+  .period-arrow:before,
+  .period-arrow:after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 1px;
+    background: black;
+  }
+  
+  .period-arrow:before {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: left;
+  }
+  
+  .period-arrow:after {
+    right: 0;
+    transform: rotate(-45deg);
+    transform-origin: right;
+  }
+  
+/* 범례 박스 들여쓰기 */
+.legend-box {
+  margin: 6px 0;
+  font-size: 12px !important;
+  width: 330px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+  padding-left: 45px;  /* 한글 버전 기본 들여쓰기 */
+}
+
+/* 영문 버전의 범례 박스는 더 작은 들여쓰기 */
+#en .legend-box {
+  padding-left: 5px;
+}
+
+/* 파란색 테두리를 위한 새로운 클래스 */
+.blue-border {
+  border: 2px solid #1a73e8 !important;
+}
+
+  .legend-colors {
+    margin-bottom: 4px;
+  }
+
+  .legend-yellow, .legend-green, .legend-blue-border {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-right: 3px;
+    vertical-align: middle;
+  }
+
+  .legend-yellow {
+    background-color: #fff59d;
+  }
+
+  .legend-green {
+    background-color: #c8e6c9;
+  }
+
+/* 새로운 파란 테두리 범례 스타일 */
+.legend-blue-border {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  /*margin-right: 3px;*/
+  margin: 0px;
+  vertical-align: middle;
+  border: 2px solid #1a73e8;
+  background-color: white;
+}
+
+.legend-red-border {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  /*margin-right: 3px;*/
+  margin: 0px;
+  vertical-align: middle;
+  border: 2px solid #ff0000;
+  background-color: white;
+}
+
+/* 범례 테이블 스타일 */
+.legend-table td {
+  padding: 2px 4px;
+  vertical-align: middle;
+  font-size: 12px !important;
+}
+
+.legend-table td:first-child {
+  width: 20px;
+}
+  /* 다운로드 버튼 스타일 수정 */
+  .download-btn {
+    display: block;
+    padding: 8px 16px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .download-btn:hover {
+    background-color: #1557b0;
+  }
+  
+/* 워터마크 컨테이너를 위한 새로운 스타일 */
+.watermark-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  white-space: nowrap;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;  /* AIK와 by lulu 사이의 간격 */
+}
+
+.watermark {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 80px;
+  opacity: 0.15;
+  pointer-events: none;
+  color: #000;
+}
+
+.watermark-credit {
+  font-family: 'Arial black', sans-serif;
+  font-size: 20pt;  /* 크기 증가 */
+  opacity: 0.15;
+  pointer-events: none;
+  color: #000;
+  font-weight: 300;  /* 얇은 글자체 */
+}
+
+/* 언어 선택기 스타일 */
+.language-selector {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.language-selector select {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+/* 로딩 표시 스타일 */
+.tab-content.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 로딩 스피너 */
+.tab-content.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #1a73e8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+</style>
+
+<div class="container">
+  <div class="tab-container">
+    <div class="tab-buttons">
+      <button class="tab-button active" onclick="showTab('kr')">한국어</button>
+      <button class="tab-button" onclick="showTab('en')">English</button>
+<!--
+	  <div class="language-selector">
+    <select id="targetLang" onchange="translateTab(this.value)">
+      <option value="">Other</option>
+      <option value="pt">Português</option>
+      <option value="es">Español</option>
+    </select>
+  </div>	  번역 포기
+  -->
+    </div>
+    
+    <!-- 한글 탭 -->
+    <div id="kr" class="tab-content active">
+<div class="watermark-container">
+  <div class="watermark">AIK</div>
+  <div class="watermark-credit">by lulu</div>
+</div>
+      <div class="table-title">#893 군비경쟁 및 연맹대전 정보</div>
+      <!-- 테이블 내용은 동일 -->
+	  <div class="small-txt">
+    각 셀 : 군비경쟁 항목을 의미
+	</div>
+      <table class="schedule-table">
+        <!-- 기존 한글 테이블 내용 -->
+        <tr>
+          <th>(KST)</th>
+          <th>월</th>
+          <th>화</th>
+          <th>수</th>
+          <th>목</th>
+          <th>금</th>
+          <th>토</th>
+          <th>일</th>
+        </tr>
+        <tr class="period-row">
+          <td></td>
+          <td colspan="6" class="period-content">
+            <span class="period-text">연맹대전 진행 요일</span>
+            <div class="period-arrow"></div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>11:00</td>
+          <td class="blue-border">테크</td>
+          <td>드론</td>
+          <td>영웅</td>
+          <td class="blue-border">건설</td>
+          <td>영웅</td>
+          <td class="green-bg blue-border">건설</td>
+          <td class="gray-bg blue-border">유닛</td>
+        </tr>
+        <tr>
+          <td>15:00</td>
+          <td class="yellow-bg">드론</td>
+          <td>영웅</td>
+          <td class="blue-border">건설</td>
+          <td class="blue-border">유닛</td>
+          <td class="green-bg blue-border">건설</td>
+          <td class="green-bg blue-border">유닛</td>
+          <td class="gray-bg blue-border">테크</td>
+        </tr>
+        <tr>
+          <td>19:00</td>
+          <td class="green-bg">영웅</td>
+          <td class="yellow-bg blue-border">건설</td>
+          <td class="blue-border">유닛</td>
+          <td class="blue-border">테크</td>
+          <td class="yellow-bg blue-border">유닛</td>
+          <td class="green-bg blue-border">테크</td>
+          <td class="gray-bg">드론</td>
+        </tr>
+        <tr>
+          <td>23:00</td>
+          <td class="blue-border">건설</td>
+          <td class="blue-border">유닛</td>
+          <td class="yellow-bg blue-border">테크</td>
+          <td>드론</td>
+          <td class="green-bg blue-border">테크</td>
+          <td>드론</td>
+          <td class="gray-bg">영웅</td>
+        </tr>
+        <tr>
+          <td>3:00</td>
+          <td class="blue-border">유닛</td>
+          <td class="blue-border">테크</td>
+          <td>드론</td>
+          <td class="yellow-bg">영웅</td>
+          <td>드론</td>
+          <td>영웅</td>
+          <td class="gray-bg blue-border">건설</td>
+        </tr>
+        <tr>
+          <td>7:00</td>
+          <td class="blue-border">테크</td>
+          <td>드론</td>
+          <td>영웅</td>
+          <td class="blue-border">건설</td>
+          <td>영웅</td>
+          <td class="blue-border">건설</td>
+          <td class="gray-bg blue-border">유닛</td>
+        </tr>
+      </table>
+<div class="legend-box">
+  <table class="legend-table" style="border-collapse: collapse; margin-bottom: 8px;">
+    <tr>
+      <td><span class="legend-yellow"></span></td>
+      <td rowspan="2">연맹대전 점수항목(노란색: 메인)</td>
+    </tr>
+    <tr>
+      <td><span class="legend-green"></span></td>
+    </tr>
+    <tr>
+      <td><span class="legend-blue-border"></span></td>
+      <td>국회 버프 가능</td>
+    </tr>
+  </table>
+  <div>
+    드론 = 드론데이터/부품 사용, 체력 소모<br>
+    테크 = 테크가속, 테크전투력<br>
+    영웅 = 정예모집(목), 영웅경험치(월,목)<br>
+    건설 = 건설가속, 건설전투력<br>
+    유닛 = 훈련가속, 유닛생산/승급
+  </div>
+</div>
+
+    </div>
+
+    <!-- 영문 탭 -->
+    <div id="en" class="tab-content">
+<div class="watermark-container">
+  <div class="watermark">AIK</div>
+  <div class="watermark-credit">by lulu</div>
+</div>
+      <div class="table-title">#893 Duel VS & Arms Race Time</div>
+	  <span class="small-txt">
+	Each cell represents an AR topic
+	</span>
+      <!-- 테이블 내용은 동일 -->
+      <table class="schedule-table">
+        <!-- 기존 영문 테이블 내용 -->
+        <tr>
+          <th class="small-txt">Reset Time</th>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+        <tr class="period-row">
+          <td></td>
+          <td></td>
+          <td colspan="6" class="period-content">
+            <span class="period-text">VS Period</span>
+            <div class="period-arrow"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>0:00</td>
+          <td class="gray-bg blue-border">U</td>
+          <td class="blue-border">T</td>
+          <td>D</td>
+          <td>H</td>
+          <td class="blue-border">C</td>
+          <td>H</td>
+          <td class="green-bg blue-border">C</td>
+        </tr>
+        <tr>
+          <td>4:00</td>
+          <td class="gray-bg blue-border">T</td>
+          <td class="yellow-bg">D</td>
+          <td>H</td>
+          <td class="blue-border">C</td>
+          <td class="blue-border">U</td>
+          <td class="green-bg blue-border">C</td>
+          <td class="green-bg blue-border">U</td>
+        </tr>
+        <tr>
+          <td>8:00</td>
+          <td class="gray-bg">D</td>
+          <td class="green-bg">H</td>
+          <td class="yellow-bg blue-border">C</td>
+          <td class="blue-border">U</td>
+          <td class="blue-border">T</td>
+          <td class="yellow-bg blue-border">U</td>
+          <td class="green-bg blue-border">T</td>
+        </tr>
+        <tr>
+          <td>12:00</td>
+          <td class="gray-bg">H</td>
+          <td class="blue-border">C</td>
+          <td class="blue-border">U</td>
+          <td class="yellow-bg blue-border">T</td>
+          <td>D</td>
+          <td class="green-bg blue-border">T</td>
+          <td>D</td>
+        </tr>
+        <tr>
+          <td>16:00</td>
+          <td class="gray-bg blue-border">C</td>
+          <td class="blue-border">U</td>
+          <td class="blue-border">T</td>
+          <td>D</td>
+          <td class="yellow-bg">H</td>
+          <td>D</td>
+          <td>H</td>
+        </tr>
+        <tr>
+          <td>20:00</td>
+          <td class="gray-bg blue-border">U</td>
+          <td class="blue-border">T</td>
+          <td>D</td>
+          <td>H</td>
+          <td class="blue-border">C</td>
+          <td>H</td>
+          <td class="blue-border">C</td>
+        </tr>
+      </table>
+<div class="legend-box">
+  <table class="legend-table" style="border-collapse: collapse; margin-bottom: 8px;">
+    <tr>
+      <td><span class="legend-yellow"></span></td>
+      <td rowspan="2">VS overlapping items <br />(Yellow = main for VS)</td>
+    </tr>
+    <tr>
+      <td><span class="legend-green"></span></td>
+    </tr>
+    <tr>
+      <td><span class="legend-blue-border"></span></td>
+      <td>Capitol buff available</td>
+    </tr>
+  </table>
+  <div>
+    D) Drone = Use Drone data, Drone parts and Stamina<br>
+    T) Tech = Tech speed-up, Increase tech combat power<br>
+    H) Hero = Elite recruitment (Thu), Hero EXP (Mon, Thu)<br>
+    C) Const. = Construction speed-up/Increase combat power<br>
+    U) Unit = Training speed-up, Unit production/upgrade
+  </div>
+</div>
+    </div>
+  </div>
+  <!-- 다운로드 버튼을 탭 외부로 이동 -->
+  <button class="download-btn" onclick="downloadCurrentTab()">Download Image</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+let currentTab = 'kr';
+
+function showTab(tabId) {
+  currentTab = tabId;  // 현재 탭 저장
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function downloadCurrentTab() {
+  const element = document.getElementById(currentTab);
+  
+  // 다운로드 버튼 임시 숨김
+  const downloadBtn = document.querySelector('.download-btn');
+  downloadBtn.style.display = 'none';
+  
+  html2canvas(element, {
+    backgroundColor: '#ffffff',
+    scale: 2,
+    logging: false,
+  }).then(canvas => {
+    const image = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `schedule-${currentTab}.png`;
+    link.href = image;
+    link.click();
+    
+    // 다운로드 버튼 다시 표시
+    downloadBtn.style.display = 'block';
+  });
+}
+</script>
+
+<!-- Google Apps Script Translation API -->
+<script src="https://accounts.google.com/gsi/client"></script>
+<script>
+// 번역이 필요한 텍스트 요소들을 매핑
+const translateElements = {
+  'table-title': '#893 Duel VS & AR Time',
+  'legend-main': 'Duel VS overlapping items (Yellow = main items)',
+  'legend-govt': 'Government buff available',
+  'legend-details': [
+    'Drone = Use Drone data, Drone parts and Stamina',
+    'Tech = Tech speed-up, Increase tech combat power',
+    'Hero = Elite recruitment (Thu), Hero EXP (Mon, Thu)',
+    'Const. = Construction speed-up/Increase combat power',
+    'Unit = Training speed-up, Unit production/upgrade'
+  ]
+};
+
+async function translateTab(targetLang) {
+  if (!targetLang) return;
+  
+  showTab('translated'); // 번역된 탭으로 전환
+  
+  try {
+    // 로딩 표시 추가
+    document.getElementById('translated').classList.add('loading');
+    
+    // Google Apps Script 웹 앱 URL (실제 배포 후 URL로 교체 필요)
+    const TRANSLATION_API_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+    
+    // 각 요소 번역
+    for (const [key, text] of Object.entries(translateElements)) {
+      if (Array.isArray(text)) {
+        // 범례 상세 내용 번역
+        const translatedTexts = await Promise.all(text.map(async (item) => {
+          const response = await fetch(`${TRANSLATION_API_URL}?text=${encodeURIComponent(item)}&target=${targetLang}`);
+          const result = await response.json();
+          return result.translatedText;
+        }));
+        
+        // 번역된 텍스트 적용
+        const legendDetails = document.getElementById('translated-legend').querySelector('div:last-child');
+        legendDetails.innerHTML = translatedTexts.join('<br>');
+      } else {
+        // 단일 텍스트 요소 번역
+        const response = await fetch(`${TRANSLATION_API_URL}?text=${encodeURIComponent(text)}&target=${targetLang}`);
+        const result = await response.json();
+        
+        // 번역된 텍스트 적용
+        if (key === 'table-title') {
+          document.getElementById('translated-title').textContent = result.translatedText;
+        } else {
+          // 범례 관련 텍스트 적용
+          const element = document.querySelector(`#translated-legend .${key}`);
+          if (element) element.textContent = result.translatedText;
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Translation error:', error);
+    alert('번역 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+  } finally {
+    document.getElementById('translated').classList.remove('loading');
+  }
+}
+
+// URL에서 탭 파라미터 읽기
+function getTabFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    return tab === 'en' ? 'en' : 'kr'; // 기본값은 'kr'
+}
+
+// URL 업데이트 함수
+function updateURL(tabId) {
+    const newURL = `${window.location.pathname}?tab=${tabId}`;
+    window.history.pushState({ tab: tabId }, '', newURL);
+}
+
+function showTab(tabId) {
+    currentTab = tabId;  // 현재 탭 저장
+    
+    // 모든 탭 컨텐츠 비활성화
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // 모든 탭 버튼 비활성화
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // 선택된 탭 활성화
+    document.getElementById(tabId).classList.add('active');
+    document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`).classList.add('active');
+    
+    // URL 업데이트
+    updateURL(tabId);
+}
+
+// 페이지 로드 시 URL 파라미터 확인
+document.addEventListener('DOMContentLoaded', () => {
+    const initialTab = getTabFromURL();
+    showTab(initialTab);
+});
+
+</script>
