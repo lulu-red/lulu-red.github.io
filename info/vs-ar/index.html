@@ -78,7 +78,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     margin: 8px 0;
-    width: 270px;
+    /*width: 270px;*/
     border: 2px solid black;
     position: relative;
     background: rgba(255, 255, 255, 0.7);  /* 배경 투명도 증가 */
@@ -333,6 +333,91 @@
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
+
+
+/* 테이블 반응형 설정 */
+.schedule-table {
+  width: 100%;
+  min-width: unset; /* 기존 최소 너비 제거 */
+  font-size: 14px; /* 기본 폰트 크기 설정 */
+}
+
+/* 모바일 화면용 미디어 쿼리 */
+@media screen and (max-width: 768px) {
+  .schedule-table {
+    font-size: 12px; /* 모바일에서 더 작은 폰트 사이즈 */
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+   /*  padding: 6px 4px; 셀 패딩 줄임 */
+    padding: 2px 0px;
+  }
+
+  .table-title {
+    font-size: 16px; /* 제목 폰트 크기 조정 */
+    margin: 10px 0;
+  }
+
+  /* 범례 박스 조정 */
+  .legend-box {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  
+  .legend-table td {
+    padding: 3px;
+  }
+}
+
+/* 더 작은 모바일 화면용 */
+@media screen and (max-width: 480px) {
+  .schedule-table {
+    font-size: 11px;
+  }
+  
+  .schedule-table th,
+  .schedule-table td {
+   /*  padding: 4px 2px; */
+    padding: 2px 0px;
+  }
+
+  /* 세로 텍스트가 잘리지 않도록 */
+  .period-text {
+    font-size: 10px;
+  }
+
+  /* 더 작은 화면에서의 워터마크 조정 */
+  .watermark {
+    font-size: 20px;
+  }
+  
+  .watermark-credit {
+    font-size: 10px;
+  }
+}
+
+/* 가로 스크롤 방지를 위한 설정 */
+.tab-content {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* 더 나은 터치 경험을 위한 설정 */
+@media (hover: none) {
+  .tab-button {
+    padding: 10px; /* 더 큰 터치 영역 */
+  }
+  
+  .download-btn {
+    padding: 12px 20px;
+    margin: 15px 0;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
 </style>
 
 <div class="container">
