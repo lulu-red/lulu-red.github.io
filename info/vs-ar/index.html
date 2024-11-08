@@ -431,6 +431,37 @@ width: calc(100% - 60px);
   }
 }
 
+
+  .section-title {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .content-box {
+    /*background-color: #f9f9f9;
+    padding: 15px;*/
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .highlight {
+    background-color: #ffe6e6;
+    padding: 1px 2px;
+    border-radius: 3px;
+  }
+
+  .category-marker {
+    display: inline-block;
+   /* min-width: 24px;*/
+    padding: 2px 8px;
+    background-color: #4a4a4a;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
 </style>
 </head>
 <body>
@@ -556,12 +587,15 @@ width: calc(100% - 60px);
       <td>국회 버프 가능</td>
     </tr>
   </table>
-  <div>
-    드론 = 드론데이터/부품 사용, 체력 소모<br>
-    테크 = 테크가속, 테크전투력<br>
-    영웅 = 정예모집(목), 영웅경험치(월,목)<br>
-    건설 = 건설가속, 건설전투력<br>
-    유닛 = 훈련가속, 유닛생산/승급
+ <div class="content-box">
+    <div class="section-title">항목별 중첩 점수 획득 방법</div>
+    <div>
+      <span class="category-marker">드론</span> <span class="highlight">드론</span>데이터/<span class="highlight">드론</span>부품 사용, <span class="highlight">체력</span> 소모<br>
+      <span class="category-marker">테크</span> <span class="highlight">테크</span>가속, <span class="highlight">테크</span>전투력<br>
+      <span class="category-marker">영웅</span> <span class="highlight">영웅</span>경험치(월,목), <span class="highlight">정예</span>모집(목)<br>
+      <span class="category-marker">건설</span> <span class="highlight">건설</span>가속, <span class="highlight">건설</span>전투력<br>
+      <span class="category-marker">유닛</span> <span class="highlight">유닛</span>생산/승급, <span class="highlight">훈련</span>가속
+    </div>
   </div>
 </div>
 
@@ -673,12 +707,15 @@ width: calc(100% - 60px);
       <td>Capitol buff available</td>
     </tr>
   </table>
-  <div>
-    D) Drone = Use Drone data, Drone parts and Stamina<br>
-    T) Tech = Tech speed-up, Increase tech combat power<br>
-    H) Hero = Elite recruitment (Thu), Hero EXP (Mon, Thu)<br>
-    C) Const. = Construction speed-up/Increase combat power<br>
-    U) Unit = Training speed-up, Unit production/upgrade
+  <div class="content-box">
+    <div class="section-title">How to Earn overlapped Points per Category</div>
+    <div>
+      <span class="category-marker">D</span> Use <span class="highlight">Drone</span> data, <span class="highlight">Drone</span> parts and <span class="highlight">Stamina</span><br>
+      <span class="category-marker">T</span> Use <span class="highlight">Tech</span> speed-up, Increase <span class="highlight">tech</span> combat power<br>
+      <span class="category-marker">H</span> <span class="highlight">Elite</span> recruitment (Thu), <span class="highlight">Hero</span> EXP (Mon, Thu)<br>
+      <span class="category-marker">C</span> <span class="highlight">Construction</span> speed-up/Increase <span class="highlight">const.</span> combat power<br>
+      <span class="category-marker">U</span> <span class="highlight">Unit</span> training speed-up, <span class="highlight">Unit</span> production/upgrade
+    </div>
   </div>
 </div>
     </div>
