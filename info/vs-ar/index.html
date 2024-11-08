@@ -29,7 +29,7 @@
 }
 
   .container {
-    max-width: 350px;  /* 테이블 크기에 맞춤 */
+    max-width: 360px;  /* 테이블 크기에 맞춤 */
     margin: 0 auto;
     position: relative;
 	    background-color: white;  /* 패딩 영역의 배경색을 흰색으로 설정 */
@@ -50,6 +50,7 @@
     border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
   }
+
 
   .tab-button {
     padding: 8px 16px;
@@ -350,7 +351,7 @@
 
 /* 테이블 반응형 설정 */
 .schedule-table {
-  width: 85%;
+  width: 100%;
   min-width: unset; /* 기존 최소 너비 제거 */
   font-size: 14px; /* 기본 폰트 크기 설정 */
 }
@@ -412,7 +413,7 @@
 
 /* 가로 스크롤 방지를 위한 설정 */
 .tab-content {
-  width: 100%;
+width: calc(100% - 60px);
   overflow-x: hidden;
 }
 
